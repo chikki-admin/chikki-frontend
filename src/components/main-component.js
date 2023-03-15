@@ -13,6 +13,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { getFish } from '../api/client'; 
 
 function Footer() {
   return (
@@ -43,6 +44,13 @@ function addFish(name, price, description, img_source, sold=false){
 const theme = createTheme();
 
 export default function MainComponent() {
+  const [fish, setFish] = React.useState([]);
+  React.useEffect(() => {
+    getFish().then((fish) => {
+      setFish(fish);
+    });
+  }, []);
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -91,8 +99,8 @@ export default function MainComponent() {
           <p>Our available selection</p>
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {fish.map((fishItem) => (
+              <Grid item key={fishItem} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
