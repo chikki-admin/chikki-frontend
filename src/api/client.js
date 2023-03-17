@@ -14,8 +14,8 @@ const getFish = (params={}) => {
                 .then(response => response.data);
 }
 
-const postFish = (payload={}) => {
-    return axios.post(`${rootUrl()}/fish`, { payload })
+const postFish = (payload) => {
+    return axios.post(`${rootUrl()}/fish`, { ...payload })
                 .then(response => response.data);
 }
 export {

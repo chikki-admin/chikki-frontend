@@ -12,9 +12,19 @@ export default function AdminComponent() {
         password: ''
     });
     const handleSubmit = (event) => {
-        postFish(fishPayload).then((response) => {  
-            console.log(response);
-        });
+        postFish(fishPayload).then((response) => {
+            console.log(response)
+            if (response === 'OK') {
+                setFishPayload({
+                    name: '',
+                    price: '',
+                    origin: '',
+                    s3Source: '',
+                    description: '',
+                    username: '',
+                    password: ''
+                })
+    }});
         event.preventDefault();
       };
     return (

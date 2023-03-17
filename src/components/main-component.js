@@ -18,11 +18,11 @@ import { getFish } from '../api/client';
 function Footer() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
-      <p>
+      <span>
             Contact us
             <br/>
             Email: admin@chicki-aquatics.com
-      </p>
+      </span>
     </Typography>
   );
 }
@@ -47,6 +47,7 @@ export default function MainComponent() {
   const [fish, setFish] = React.useState([]);
   React.useEffect(() => {
     getFish().then((fish) => {
+      console.log(fish)
       setFish(fish);
     });
   }, []);
@@ -95,12 +96,13 @@ export default function MainComponent() {
             </Stack>
           </Container>
         </Box>
+
+        <p>Our available selection</p>
         <Container sx={{ py: 8 }} maxWidth="30%">
-          <p>Our available selection</p>
           {/* End hero unit */}
           <Grid container spacing={4}>
             {fish.map((fishItem) => (
-              <Grid item key={fishItem} xs={12} sm={6} md={4}>
+              <Grid item key={fishItem.id} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
