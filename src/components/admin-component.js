@@ -13,7 +13,6 @@ export default function AdminComponent() {
     });
     const handleSubmit = (event) => {
         postFish(fishPayload).then((response) => {
-            console.log(response)
             if (response === 'OK') {
                 setFishPayload({
                     name: '',

@@ -14,11 +14,17 @@ const getFish = (params={}) => {
                 .then(response => response.data);
 }
 
+const buyFish = (id) => {
+    console.log("buying fish")
+    return axios.put(`${rootUrl()}/fish/${id}`)
+}
+
 const postFish = (payload) => {
     return axios.post(`${rootUrl()}/fish`, { ...payload })
                 .then(response => response.data);
 }
 export {
     getFish,
-    postFish
+    postFish,
+    buyFish
 }
