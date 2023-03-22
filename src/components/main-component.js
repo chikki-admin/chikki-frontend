@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { getFish, buyFish } from '../api/client'; 
 import images from '../media/images';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import logo from '../media/favicon-32x32.png';
 
 function Footer() {
   return (
@@ -56,8 +57,9 @@ export default function MainComponent() {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Welcome to our online fish store !
+          <img src={logo} alt="logo" />
+          <Typography variant="h6" color="inherit" noWrap margin="20px">
+            Welcome to Chikki Aquatics!
           </Typography>
         </Toolbar>
       </AppBar>
