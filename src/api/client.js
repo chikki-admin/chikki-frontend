@@ -15,7 +15,6 @@ const getFish = (params={}) => {
 }
 
 const buyFish = (id) => {
-    console.log("buying fish")
     return axios.put(`${rootUrl()}/fish/${id}`)
 }
 

@@ -13,10 +13,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { getFish, buyFish } from '../api/client'; 
-import images from '../media/images';
+import { getFish, buyFish } from '../api/client';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import logo from '../media/favicon-32x32.png';
+import mainBackground from '../media/main-image.jpg';
 
 function Footer() {
   return (
@@ -66,7 +66,7 @@ export default function MainComponent() {
         <Box
           sx={{
             bgcolor: 'background.paper',
-            backgroundImage: `url(${images.mainBackground})`,
+            backgroundImage: `url(${mainBackground})`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center bottom 250px',
