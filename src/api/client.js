@@ -5,7 +5,7 @@ const rootUrl = () => {
     if (dev) {
         return "http://localhost:8000";
     } else {
-        return "18.223.108.214"
+        return "http://18.223.108.214"
     }
 }
 
