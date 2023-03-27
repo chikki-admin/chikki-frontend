@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const dev = false;
+const dev = true;
 const rootUrl = () => {
     if (dev) {
         return "http://localhost:8000";

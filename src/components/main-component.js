@@ -17,6 +17,7 @@ import { getFish, buyFish } from '../api/client';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import logo from '../media/favicon-32x32.png';
 import mainBackground from '../media/main-image.jpg';
+import SimpleDialog from './popup-component';
 
 function Footer() {
   return (
@@ -40,14 +41,26 @@ export default function MainComponent() {
     });
   }, []);
 
+
+  const [open, setOpen] = React.useState(false);
+  const [id, setId] = React.useState(0);
+
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
   const fontSize = matches ? '4rem' : '2rem';
 
   const onBuyClick = (id) => {
+    setOpen(true);
+    setId(id);
+  };
+
+  const handleClosePopup = (value) => {
     buyFish(id).then((response) => {
       if (response.status === 200) {
-        window.location.reload()
+        setOpen(false);
+        getFish().then((fish) => {
+          setFish(fish);
+        });
       }
     });
   };
@@ -107,6 +120,10 @@ export default function MainComponent() {
         </Box>
       
         <p>Live Stream section available 7PM Central time daily</p>
+        <SimpleDialog
+        open={open}
+        handleClose={handleClosePopup}/>
+
         <p>Our available selection</p>
         <Container sx={{ py: 8 }} maxWidth="30%">
           <Grid container spacing={4}>
