@@ -14,8 +14,8 @@ const getFish = (params={}) => {
                 .then(response => response.data);
 }
 
-const buyFish = (id) => {
-    return axios.put(`${rootUrl()}/fish/${id}`)
+const buyFish = (sessionId) => {
+    return axios.post(`${rootUrl()}/fish/${sessionId}`)
 }
 
 const postFish = (payload) => {
@@ -23,8 +23,8 @@ const postFish = (payload) => {
                 .then(response => response.data);
 }
 
-const createCheckoutSession = (payload) => {
-    return axios.post(`${rootUrl()}/create-checkout-session`, { ...payload }, { headers: { 'Content-Type': 'application/json' } })
+const createCheckoutSession = (fishId) => {
+    return axios.post(`${rootUrl()}/create-checkout-session`, { fishId }, { headers: { 'Content-Type': 'application/json' } })
 }
 export {
     getFish,

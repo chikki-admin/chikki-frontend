@@ -43,26 +43,19 @@ export default function MainComponent() {
 
 
   const [open, setOpen] = React.useState(false);
-  const [id, setId] = React.useState(0);
+  const [fishId, setFishId] = React.useState(0);
 
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
   const fontSize = matches ? '4rem' : '2rem';
 
-  const onBuyClick = (id) => {
+  const onBuyClick = (onBuyFishId) => {
     setOpen(true);
-    setId(id);
+    setFishId(onBuyFishId)
   };
 
-  const handleClosePopup = (value) => {
-    buyFish(id).then((response) => {
-      if (response.status === 200) {
-        setOpen(false);
-        getFish().then((fish) => {
-          setFish(fish);
-        });
-      }
-    });
+  const handleClosePopup = () => {
+    setOpen(false)
   };
   
   return (
@@ -122,7 +115,8 @@ export default function MainComponent() {
         <p>Live Stream section available 7PM Central time daily</p>
         <SimpleDialog
         open={open}
-        handleClose={handleClosePopup}/>
+        handleClose={handleClosePopup}
+        fishId={fishId}/>
 
         <p>Our available selection</p>
         <Container sx={{ py: 8 }} maxWidth="30%">

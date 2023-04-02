@@ -8,6 +8,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import PaymentSuccessComponent from './components/payment-success-component';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />,
+  },
+  {
+    path: "/payment-success",
+    element: <PaymentSuccessComponent />,
   }
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));

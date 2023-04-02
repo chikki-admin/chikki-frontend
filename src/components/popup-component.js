@@ -5,10 +5,10 @@ import { Button } from '@mui/material';
 import { createCheckoutSession } from '../api/client';
 
 const SimpleDialog = (props) => {
-  const { handleClose, open } = props;
+  const { handleClose, open, fishId } = props;
 
-  const handleOnClick = () => {
-    createCheckoutSession().then((response) => {
+  const handleOnClick = (fishId) => {
+    createCheckoutSession(fishId).then((response) => {
       window.location.href = response.data.url
     })}
 
@@ -19,7 +19,7 @@ const SimpleDialog = (props) => {
         <h3>show picture of fish</h3>
         <h3>show price of fish</h3>
         <h3>show shipping price</h3>
-        <Button onClick={() => handleOnClick()}>Buy</Button>
+        <Button onClick={() => handleOnClick(fishId)}>Buy</Button>
     </Dialog>
   );
 }
