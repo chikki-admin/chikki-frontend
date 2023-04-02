@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import { App, PaymentSuccessApp } from './App';
 import Admin from './Admin';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import PaymentSuccessComponent from './components/payment-success-component';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +20,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/payment-success",
-    element: <PaymentSuccessComponent />,
+    element: <PaymentSuccessApp />,
   }
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
