@@ -8,6 +8,7 @@ import SimpleDialog from './popup-component';
 import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 import { Box } from '@mui/system';
+import VideoPlayerComponent from './video-player-component';
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
     position: 'relative',
@@ -71,6 +72,8 @@ export default function DisplayComponent() {
   
     const [open, setOpen] = React.useState(false);
     const [fishId, setFishId] = React.useState(0);
+    const [openModal, setOpenModal] = React.useState(false);
+    const [videoSource, setVideoSource] = React.useState("");
 
     const onBuyClick = (onBuyFishId) => {
         setOpen(true);
@@ -87,8 +90,9 @@ export default function DisplayComponent() {
 
     return(
         <Container sx={{ py: 8 }} maxWidth="30%">
-            <p style={letterStyles}>Live Stream section available 7PM Central time daily</p>
-            <p style={letterStyles}>Our available selection</p>
+            <p style={letterStyles}>Live Stream section available 7PM Central time daily </p>
+            <p style={letterStyles}>Our available selection </p>
+            <VideoPlayerComponent open={openModal} setOpen={setOpenModal} videoSource={videoSource}/>
             <SimpleDialog
                 open={open}
                 handleClose={handleClosePopup}
@@ -101,6 +105,12 @@ export default function DisplayComponent() {
                 key={fishItem.id}
                 style={{
                     width: '100%',
+                }}
+                onClick={() => {
+                    if (fishItem.bought === false){
+                        setVideoSource(fishItem.video_source)
+                        setOpenModal(true)
+                    }
                 }}
                 >
                 <ImageSrc style={{ backgroundImage: `url(${fishItem.image_source})`, borderRadius: '5px' }} />

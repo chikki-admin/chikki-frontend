@@ -21,7 +21,7 @@ const PaymentSuccessComponent = () => {
 
   return (
     <Container sx={{ py: 8 }} maxWidth="30%">
-      <p style={styles}>Payment Success with id: <br/> {querySessionId}</p>
+      <p style={styles}> Payment Success with id: <br/> {querySessionId}</p>
       <Button size="medium"
             color='primary'
             style={{ backgroundColor: '#ADD8E6' }}

@@ -8,6 +8,7 @@ export default function AdminComponent() {
         origin: '',
         s3Source: '',
         description: '',
+        videoSource: '',
         username: '',
         password: ''
     });
@@ -20,6 +21,7 @@ export default function AdminComponent() {
                     origin: '',
                     s3Source: '',
                     description: '',
+                    videoSource: '',
                     username: '',
                     password: ''
                 })
@@ -71,6 +73,15 @@ export default function AdminComponent() {
                     setFishPayload({
                         ...fishPayload,
                         description: event.target.value})} />
+            </label>
+        <br />
+        <label>
+                Video Source:
+                <input type="text" value={fishPayload.videoSource} 
+                    onChange={(event) => 
+                    setFishPayload({
+                        ...fishPayload,
+                        videoSource: event.target.value})} />
             </label>
         <br />
         <label>
