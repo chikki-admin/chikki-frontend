@@ -23,8 +23,8 @@ const postFish = (payload) => {
                 .then(response => response.data);
 }
 
-const createCheckoutSession = (fishId) => {
-    return axios.post(`${rootUrl()}/create-checkout-session`, { fishId }, { headers: { 'Content-Type': 'application/json' } })
+const createCheckoutSession = (fishId, fishPrice, fishName, imgSource) => {
+    return axios.post(`${rootUrl()}/create-checkout-session`, { fishId, fishPrice, fishName, imgSource }, { headers: { 'Content-Type': 'application/json' } })
 }
 export {
     getFish,

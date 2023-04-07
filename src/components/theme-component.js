@@ -33,7 +33,26 @@ export default function MainComponent({ component: Component }) {
 
   const letterStyles = {
     color:"#F2E8DC"
-}
+  }
+
+  const images = [
+    {
+      id: 1,
+      src: `url(${mainBackground})`,
+      alt: 'Image 1',
+    },
+    {
+      id: 2,
+      src: `url(${mainBackground})`,
+      alt: 'Image 2',
+    },
+    {
+      id: 3,
+      src: `url(${mainBackground})`,
+      alt: 'Image 3',
+    },
+  ];
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

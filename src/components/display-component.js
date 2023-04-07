@@ -93,13 +93,17 @@ export default function DisplayComponent() {
             <p style={letterStyles}>Live Stream section available 7PM Central time daily </p>
             <p style={letterStyles}>Our available selection </p>
             <VideoPlayerComponent open={openModal} setOpen={setOpenModal} videoSource={videoSource}/>
-            <SimpleDialog
-                open={open}
-                handleClose={handleClosePopup}
-                fishId={fishId}/>
           <Grid container spacing={4}>
             {fish.map((fishItem) => (
               <Grid item key={fishItem.id} xs={12} sm={6} md={4} lg={2} >
+                <SimpleDialog
+                    open={open}
+                    handleClose={handleClosePopup}
+                    fishId={fishItem.id}
+                    fishName={fishItem.fish_name}
+                    fishPrice={fishItem.price}
+                    imgSource={fishItem.image_source}
+                    />
                 <ImageButton
                 focusRipple
                 key={fishItem.id}
