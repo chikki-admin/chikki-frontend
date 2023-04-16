@@ -3,13 +3,16 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import { Button } from '@mui/material';
 import { createCheckoutSession } from '../api/client';
+import { useNavigate } from 'react-router-dom';
 
 const SimpleDialog = (props) => {
+
+  const navigate = useNavigate();
   const { handleClose, open, fishId, fishName, fishPrice, imgSource } = props;
 
   const handleOnClick = (fishId, fishPrice, fishName, imgSource) => {
     createCheckoutSession(fishId, fishPrice, fishName, imgSource).then((response) => {
-      window.location.href = response.data.url
+      navigate(response.data.url)
     })}
 
 

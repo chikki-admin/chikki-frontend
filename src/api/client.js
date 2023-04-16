@@ -23,12 +23,28 @@ const postFish = (payload) => {
                 .then(response => response.data);
 }
 
+// Auth client
+const getUser = ({ email, password }) => {
+    return axios.post(`${rootUrl()}/auth/login`, { email, password });
+}
+
+const postUser = ({email, password}) => {
+    return axios.post(`${rootUrl()}/auth`, { email, password }).then(response => response.data);
+}
+
 const createCheckoutSession = (fishId, fishPrice, fishName, imgSource) => {
     return axios.post(`${rootUrl()}/create-checkout-session`, { fishId, fishPrice, fishName, imgSource }, { headers: { 'Content-Type': 'application/json' } })
 }
 export {
+    // Fish path
     getFish,
     postFish,
     buyFish,
+    
+    // User path
+    getUser,
+    postUser,
+
+    // Stripe path
     createCheckoutSession
 }

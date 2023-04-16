@@ -1,15 +1,18 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import logo from '../media/favicon-32x32.png';
 import mainBackground from '../media/main-image.jpg';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Slide } from 'react-slideshow-image';
+
+import { IconButton } from '@mui/material';
+import 'react-slideshow-image/dist/styles.css'
+import { useNavigate } from 'react-router-dom';
 
 function Footer() {
   return (
@@ -24,35 +27,13 @@ function Footer() {
 }
 
 const theme = createTheme();
+const backgroundImages = [mainBackground, mainBackground, mainBackground]
 
 export default function MainComponent({ component: Component }) {
-
-  const matches = useMediaQuery(theme.breakpoints.up('sm'));
-
-  const fontSize = matches ? '4rem' : '2rem';
-
-  const letterStyles = {
-    color:"#F2E8DC"
+  const navigate = useNavigate();
+  const handleIconClick = () => {
+    navigate("/login")
   }
-
-  const images = [
-    {
-      id: 1,
-      src: `url(${mainBackground})`,
-      alt: 'Image 1',
-    },
-    {
-      id: 2,
-      src: `url(${mainBackground})`,
-      alt: 'Image 2',
-    },
-    {
-      id: 3,
-      src: `url(${mainBackground})`,
-      alt: 'Image 3',
-    },
-  ];
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -62,54 +43,31 @@ export default function MainComponent({ component: Component }) {
           <Typography variant="h6" color="inherit" noWrap margin="20px">
             Welcome to Chikki Aquatics!
           </Typography>
+          <Box display="flex" justifyContent="flex-end" sx={{right:50}} position='absolute'>
+            <IconButton onClick={() => handleIconClick()} sx={{color: "white"}}>
+              <AccountCircleIcon fontSize='large' sx={{right:0}}/>
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
         <Box
           sx={{
-            bgcolor: 'background.paper',
-            backgroundImage: `url(${mainBackground})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center bottom 250px',
-            width: '90vw',
-            height: '40vh',
-            pt: 10,
-            backgroundAttachment: 'fixed',
+            width: '95%',
           }}
         >
-                <Container maxWidth="70%">
-                <Typography
-                component="h1"
-                variant="h2"
-                align="center"
-                color="white text.primary"
-                gutterBottom
-                sx={{ 
-                  fontSize: '6rem',
-                  position: 'relative',
-                 }}
-                style={{fontSize, ...letterStyles}}
-              >
-                Chikki Aquatics
-              </Typography>
-              <Typography variant="h5" 
-                align="center" color="white text.secondary" paragraph 
-                sx={{ fontSize: '2rem', position: 'relative', ...letterStyles }}>
-                We love goldfish and we want to share our passion with you.
-              </Typography>
-              <Stack
-                sx={{ pt: 4 }}
-                direction="row"
-                spacing={2}
-                justifyContent="center"
-              >
-              </Stack>
-          </Container>
+            <Slide>
+              {backgroundImages.map((image, index) => 
+                <div key={index}className="each-slide-effect">
+                    <div style={{ 'backgroundImage': `url(${image})` }}> 
+                        <span>Slide 1</span>
+                    </div>
+                </div>)}
+            </Slide>
         </Box>
           
       {/* Display component could be replaced in here */}
       <Component />
-      <Box sx={{ bgcolor: '#0077be', p: 6}} component="footer">
+      <Box sx={{ bgcolor: '#0077be', p: 6, width: '100%'}} component="footer">
         <Footer />
       </Box>
     </ThemeProvider>

@@ -4,7 +4,10 @@ import { buyFish } from "../api/client";
 import Container from '@mui/material/Container';
 import { Button } from "@mui/material";
 
+import { useNavigate } from 'react-router-dom';
+
 const PaymentSuccessComponent = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const querySessionId = queryParams.get('session_id');
@@ -25,7 +28,7 @@ const PaymentSuccessComponent = () => {
       <Button size="medium"
             color='primary'
             style={{ backgroundColor: '#ADD8E6' }}
-            onClick={() => window.location.href = '/'}
+            onClick={() => navigate("/")}
             > Continue Shopping</Button>
     </Container>
   );

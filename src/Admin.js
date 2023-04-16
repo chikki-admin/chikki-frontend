@@ -5,7 +5,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <AdminComponent />
+        <div className='wave'>
+          <AdminComponent />
+        </div>
       </header>
     </div>
   );

@@ -5,9 +5,33 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(to bottom, #0f2f61, #114a77, #0e6d92, #0086ae, #00a5c5);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.each-slide-effect > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  overflow: hidden;
+}
+
+.each-slide-effect span {
+  font-size: 40px;
+  text-align: center;
+}
+
+
+#wave {
+  position: relative;
+  height: 70px;
+  width: 100%;
+  background: #e0efe3;
 }

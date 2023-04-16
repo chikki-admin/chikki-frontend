@@ -71,13 +71,11 @@ export default function DisplayComponent() {
   
   
     const [open, setOpen] = React.useState(false);
-    const [fishId, setFishId] = React.useState(0);
     const [openModal, setOpenModal] = React.useState(false);
     const [videoSource, setVideoSource] = React.useState("");
 
-    const onBuyClick = (onBuyFishId) => {
+    const onBuyClick = () => {
         setOpen(true);
-        setFishId(onBuyFishId)
     };
 
     const handleClosePopup = () => {
@@ -89,11 +87,11 @@ export default function DisplayComponent() {
     }
 
     return(
-        <Container sx={{ py: 8 }} maxWidth="30%">
+        <Container maxWidth="30%">
             <p style={letterStyles}>Live Stream section available 7PM Central time daily </p>
             <p style={letterStyles}>Our available selection </p>
             <VideoPlayerComponent open={openModal} setOpen={setOpenModal} videoSource={videoSource}/>
-          <Grid container spacing={4}>
+          <Grid container spacing={4} sx={{py:1}}>
             {fish.map((fishItem) => (
               <Grid item key={fishItem.id} xs={12} sm={6} md={4} lg={2} >
                 <SimpleDialog
@@ -155,7 +153,7 @@ export default function DisplayComponent() {
                         <Button size="small" 
                         color='primary'
                         type='submit'
-                        onClick={() => onBuyClick(fishItem.id)}
+                        onClick={() => onBuyClick()}
                         style={{ 
                             backgroundColor: '#ADD8E6',borderRadius: '20px' }}>Buy</Button>}
                 </Typography>
