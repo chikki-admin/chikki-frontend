@@ -13,6 +13,7 @@ import SignUp from './components/signup-component';
 import Dashboard from './components/seller-dashboard-component';
 import AddFishPage from './components/add-fish-component';
 import store from './redux/store';
+import ProtectedRoute from './components/protected-route';
 
 const router = createBrowserRouter([
   {
@@ -33,12 +34,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/sellerdashboard",
-    element: <Dashboard />,
+    element: <ProtectedRoute children={<Dashboard />} />,
   }
   ,
   {
     path: "/addfish",
-    element: <AddFishPage />,
+    element: <ProtectedRoute children={<AddFishPage />} />,
   }
 
 ]);
