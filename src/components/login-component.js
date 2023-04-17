@@ -29,7 +29,7 @@ export default function SignIn() {
     event.preventDefault();
     const user = await getUser({email, password})
     if (user.status === 200) {
-      dispatch(updateToken(user.data.token))
+      dispatch(updateToken(user.data))
       navigate("/sellerdashboard")
     } else {
       alert("Error during login")

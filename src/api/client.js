@@ -9,6 +9,10 @@ const rootUrl = () => {
     }
 }
 
+const getFishBySellerId = (sellerId) => {
+    return axios.get(`${rootUrl()}/seller/${sellerId}/fish`).then(response => response.data);
+}
+
 const getFish = (params={}) => {
   return axios.get(`${rootUrl()}/fish`, { params })
                 .then(response => response.data);
@@ -19,7 +23,7 @@ const buyFish = (sessionId) => {
 }
 
 const postFish = (payload) => {
-    return axios.post(`${rootUrl()}/fish`, { ...payload })
+    return axios.post(`${rootUrl()}/fish`, { ...payload }, { headers: {"Authorization" : `Bearer ${payload.token}`} } )
                 .then(response => response.data);
 }
 
@@ -40,6 +44,7 @@ export {
     getFish,
     postFish,
     buyFish,
+    getFishBySellerId,
     
     // User path
     getUser,

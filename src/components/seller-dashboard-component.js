@@ -26,52 +26,53 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import SetMealIcon from '@mui/icons-material/SetMeal';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'
+import { getFishBySellerId } from '../api/client';
 
 function createData(
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    fish_name,
+    price,
+    origin,
+    bought,
+    image_source,
   ) {
-    return { name, calories, fat, carbs, protein };
+    return { fish_name, price, origin, bought, image_source };
   }
-  
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
 
 const BasicTable = () => {
     const user = useSelector((state) => state.user)
+    const [fishbySeller, setFishbySeller] = React.useState([]);
+    React.useEffect(() => {
+        getFishBySellerId(user.userId).then((allFish) => {
+          setFishbySeller(allFish.map((fish) => {
+            return createData(fish.fish_name, fish.price, fish.origin, fish.bought ? "Yes" : "No", fish.image_source);
+          }
+          ))});
+    }, [user.userId]);
     return (
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
+              <TableCell>Fish Name</TableCell>
+              <TableCell align="right">Fish Price</TableCell>
+              <TableCell align="right">Fish origin</TableCell>
+              <TableCell align="right">Sold?</TableCell>
+              <TableCell align="right">Fish Picture</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {fishbySeller.map((fish) => (
               <TableRow
-                key={row.name}
+                key={fish.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {fish.fish_name}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="right">{fish.price}</TableCell>
+                <TableCell align="right">{fish.origin}</TableCell>
+                <TableCell align="right">{fish.bought}</TableCell>
+                <TableCell align="right">{fish.image_source}</TableCell>
               </TableRow>
             ))}
           </TableBody>

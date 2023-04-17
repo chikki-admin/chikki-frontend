@@ -21,8 +21,14 @@ import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { postFish } from '../api/client';
+import { useSelector } from 'react-redux';
 
 const AddFishForm = () => {
+
+    const navigate = useNavigate();
+
+    const user = useSelector((state) => state.user)
     const [fishPayload, setFishPayload] = React.useState({
         name: '',
         price: '',
@@ -30,14 +36,22 @@ const AddFishForm = () => {
         s3Source: '',
         description: '',
         videoSource: '',
+        sellerId: user.userId,
+        token: user.token
     });
-    const onSubmitFishClick = () => {
-        if (fishPayload.name === '' || fishPayload.price === '' || fishPayload.s3Source === '') {
-            alert('Please enter fish name and price');
-            return
-        }
-        // post a fish
-
+    const onSubmitFishClick = (event) => {
+      if (fishPayload.name === '' || fishPayload.price === '' || fishPayload.s3Source === '') {
+          alert('You are missing either name, price or s3Source');
+          return
+      }
+      // post a fish
+      postFish(fishPayload).then((response) => {
+        if (response === 'OK') {
+          navigate('/sellerdashboard');
+        } else {
+                alert('Something went wrong');}
+        event.preventDefault();
+      })
     }
     return (
         <Paper sx={{padding:2}}>
@@ -55,24 +69,28 @@ const AddFishForm = () => {
                 id="demo-helper-text-aligned"
                 label="fish price"
                 fullWidth
+                onChange={(e) => setFishPayload({...fishPayload, price: e.target.value})}
                 required
                 />
             <TextField
                 helperText="Please enter your fish origin"
                 id="demo-helper-text-aligned"
                 label="fish origin"
+                onChange={(e) => setFishPayload({...fishPayload, origin: e.target.value})}
                 fullWidth
                 />
             <TextField
                 helperText="Please enter your fish description"
                 id="demo-helper-text-aligned"
-                label="fish description"
+                label="fish image"
+                onChange={(e) => setFishPayload({...fishPayload, s3Source: e.target.value})}
                 fullWidth
                 />
             <TextField
                 helperText="Please enter your fish swimming video"
                 id="demo-helper-text-aligned"
                 label="fish description"
+                onChange={(e) => setFishPayload({...fishPayload, description: e.target.value})}
                 fullWidth
                 />
             <Button variant="contained" color="primary" fullWidth onClick={() => onSubmitFishClick()}><h3>Submit</h3></Button>
