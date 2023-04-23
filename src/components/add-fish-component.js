@@ -59,39 +59,46 @@ const AddFishForm = () => {
             <TextField
                 helperText="Please enter your name"
                 id="demo-helper-text-aligned"
-                label="fish name"
+                label="Fish Name"
                 fullWidth
                 onChange={(e) => setFishPayload({...fishPayload, name: e.target.value})}
                 required
+                sx={{padding: 1}}
                 />
             <TextField
                 helperText="Please enter your price for fish"
                 id="demo-helper-text-aligned"
-                label="fish price"
+                label="Fish Price"
                 fullWidth
                 onChange={(e) => setFishPayload({...fishPayload, price: e.target.value})}
                 required
+                type='number'
+                sx={{padding: 1}}
                 />
             <TextField
                 helperText="Please enter your fish origin"
                 id="demo-helper-text-aligned"
-                label="fish origin"
+                label="Fish Origin"
                 onChange={(e) => setFishPayload({...fishPayload, origin: e.target.value})}
                 fullWidth
+                sx={{padding: 1}}
                 />
             <TextField
                 helperText="Please enter your fish description"
                 id="demo-helper-text-aligned"
-                label="fish image"
+                label="Fish Image"
                 onChange={(e) => setFishPayload({...fishPayload, s3Source: e.target.value})}
                 fullWidth
+                sx={{padding: 1}}
+                required
                 />
             <TextField
                 helperText="Please enter your fish swimming video"
                 id="demo-helper-text-aligned"
-                label="fish description"
+                label="Fish Description"
                 onChange={(e) => setFishPayload({...fishPayload, description: e.target.value})}
                 fullWidth
+                sx={{padding: 1}}
                 />
             <Button variant="contained" color="primary" fullWidth onClick={() => onSubmitFishClick()}><h3>Submit</h3></Button>
 

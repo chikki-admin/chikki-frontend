@@ -24,55 +24,76 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SetMealIcon from '@mui/icons-material/SetMeal';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'
-import { getFishBySellerId } from '../api/client';
+import { getFishBySellerId, deleteFish } from '../api/client';
+import { HumanFriendlyMessage } from '../constants/constants';
 
 function createData(
+    fish_id,
     fish_name,
     price,
     origin,
-    bought,
+    status,
     image_source,
   ) {
-    return { fish_name, price, origin, bought, image_source };
+    return { fish_id, fish_name, price, origin, status, image_source };
   }
 
 const BasicTable = () => {
     const user = useSelector((state) => state.user)
     const [fishbySeller, setFishbySeller] = React.useState([]);
-    React.useEffect(() => {
-        getFishBySellerId(user.userId).then((allFish) => {
-          setFishbySeller(allFish.map((fish) => {
-            return createData(fish.fish_name, fish.price, fish.origin, fish.bought ? "Yes" : "No", fish.image_source);
-          }
-          ))});
-    }, [user.userId]);
+    const getFishForDashboard = () => {
+      getFishBySellerId(user.userId).then((allFish) => {
+        setFishbySeller(allFish.map((fish) => {
+          return createData(fish.id, fish.fish_name, fish.price, fish.origin, fish.status, fish.image_source);
+        }
+        ))})};
+    React.useEffect(() => {getFishForDashboard()}, []);
+    const handleFishDelete = (event, fishId) => {
+      event.preventDefault();
+      deleteFish(fishId, user.token )
+      .then(_ => getFishForDashboard())
+      .catch(_ => { alert('Something went wrong, cannot delete the item')});
+    }
+
     return (
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell>Fish Id</TableCell>
               <TableCell>Fish Name</TableCell>
               <TableCell align="right">Fish Price</TableCell>
               <TableCell align="right">Fish origin</TableCell>
-              <TableCell align="right">Sold?</TableCell>
+              <TableCell align="right">status</TableCell>
               <TableCell align="right">Fish Picture</TableCell>
+              <TableCell align="right">Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {fishbySeller.map((fish) => (
               <TableRow
-                key={fish.id}
+                key={fish.fish_id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
+              <TableCell component="th" scope="row">
+                {fish.fish_id.slice(0,6)}
+              </TableCell>
                 <TableCell component="th" scope="row">
                   {fish.fish_name}
                 </TableCell>
                 <TableCell align="right">{fish.price}</TableCell>
                 <TableCell align="right">{fish.origin}</TableCell>
-                <TableCell align="right">{fish.bought}</TableCell>
+                <TableCell align="right">{HumanFriendlyMessage[fish.status]}</TableCell>
                 <TableCell align="right">{fish.image_source}</TableCell>
+                <TableCell align="right">
+                  <Button variant="outlined" startIcon={<DeleteIcon />} onClick={(e) => handleFishDelete(e, fish.fish_id)}>
+                    Delete
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

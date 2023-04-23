@@ -9,6 +9,10 @@ const rootUrl = () => {
     }
 }
 
+const getSellerId = (sellerId) => {
+    return axios.get(`${rootUrl()}/auth/seller/${sellerId}`).then(response => response.data);
+}
+
 const getFishBySellerId = (sellerId) => {
     return axios.get(`${rootUrl()}/seller/${sellerId}/fish`).then(response => response.data);
 }
@@ -18,6 +22,11 @@ const getFish = (params={}) => {
                 .then(response => response.data);
 }
 
+const getFishPagination = (offSet) => {
+    return axios.get(`${rootUrl()}/fish/pagination/${offSet}`)
+                  .then(response => response.data);
+  }
+
 const buyFish = (sessionId) => {
     return axios.post(`${rootUrl()}/fish/${sessionId}`)
 }
@@ -25,6 +34,10 @@ const buyFish = (sessionId) => {
 const postFish = (payload) => {
     return axios.post(`${rootUrl()}/fish`, { ...payload }, { headers: {"Authorization" : `Bearer ${payload.token}`} } )
                 .then(response => response.data);
+}
+
+const deleteFish = (fishId, token) => {
+    return axios.delete(`${rootUrl()}/fish/${fishId}`, { headers: {"Authorization" : `Bearer ${token}`} })
 }
 
 // Auth client
@@ -45,6 +58,11 @@ export {
     postFish,
     buyFish,
     getFishBySellerId,
+    deleteFish,
+    getFishPagination,
+
+    // seller path
+    getSellerId,
     
     // User path
     getUser,

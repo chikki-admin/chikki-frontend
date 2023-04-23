@@ -2,4 +2,11 @@
 const Constants = {
     shippingPrice: 52,
 }
-export default Constants;
+
+const HumanFriendlyMessage = {
+    'not_bought': 'Not Bought',
+    'sold': 'Sold',
+    'shipped': 'Shipped',
+    'delivered': 'Delivered',
+}
+export {HumanFriendlyMessage, Constants};
