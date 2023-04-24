@@ -19,6 +19,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import SetMealIcon from '@mui/icons-material/SetMeal';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { postFish } from '../api/client';
@@ -36,6 +37,7 @@ const AddFishForm = () => {
         s3Source: '',
         description: '',
         videoSource: '',
+        imageSource: '',
         sellerId: user.userId,
         token: user.token
     });
@@ -45,13 +47,18 @@ const AddFishForm = () => {
           return
       }
       // post a fish
-      postFish(fishPayload).then((response) => {
-        if (response === 'OK') {
-          navigate('/sellerdashboard');
-        } else {
-                alert('Something went wrong');}
-        event.preventDefault();
-      })
+
+      const reader = new FileReader();
+      reader.readAsDataURL(fishPayload.s3Source);
+      reader.onloadend = () => {
+        fishPayload.s3Source = reader.result;
+        postFish(fishPayload).then((response) => {
+          if (response === 'OK') {
+            navigate('/sellerdashboard');
+          } else {
+            alert('Something went wrong');}
+        })
+      };
     }
     return (
         <Paper sx={{padding:2}}>
@@ -83,15 +90,7 @@ const AddFishForm = () => {
                 fullWidth
                 sx={{padding: 1}}
                 />
-            <TextField
-                helperText="Please enter your fish description"
-                id="demo-helper-text-aligned"
-                label="Fish Image"
-                onChange={(e) => setFishPayload({...fishPayload, s3Source: e.target.value})}
-                fullWidth
-                sx={{padding: 1}}
-                required
-                />
+
             <TextField
                 helperText="Please enter your fish swimming video"
                 id="demo-helper-text-aligned"
@@ -100,6 +99,32 @@ const AddFishForm = () => {
                 fullWidth
                 sx={{padding: 1}}
                 />
+            {fishPayload.imageSource ? <p> <CheckCircleOutlineIcon style={{ color: 'green' }}/> Media Selected</p> : null}
+            <Button
+                variant="outlined"
+                component="label"
+                sx={{padding: 1}}
+              >
+                Upload Fish Image
+                <input
+                  type="file"
+                  hidden
+                  onChange={(e) => setFishPayload({...fishPayload, s3Source: e.target.files[0], imageSource: e.target.value})}
+                />
+            </Button>
+            <Button
+                variant="outlined"
+                component="label"
+                sx={{padding: 1}}
+              >
+                Upload Fish Video
+                <input
+                  type="file"
+                  hidden
+                  onChange={(e) => setFishPayload({...fishPayload, videoSource: e.target.files[0]})}
+                />
+            </Button>
+            <Divider style={{ height: 10}}/>
             <Button variant="contained" color="primary" fullWidth onClick={() => onSubmitFishClick()}><h3>Submit</h3></Button>
 
         </Paper>

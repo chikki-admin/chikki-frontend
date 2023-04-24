@@ -36,7 +36,6 @@ export default function DisplayComponent() {
       getFishPagination(scrollingOffset).then((fetchFished) => {
         setFish(fish.concat(fetchFished));
         setScrollingOffset(scrollingOffset + 3)
-        console.log(fish)
         if(fetchFished.length === 0){
           setIsMoreFish(false);
         }

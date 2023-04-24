@@ -13,7 +13,7 @@ const PaymentSuccessComponent = () => {
   const querySessionId = queryParams.get('session_id');
   const updateFish = () => {
     if (querySessionId){
-        buyFish(querySessionId).then((response) => console.log(response))
+        buyFish(querySessionId)
     }
   }
   updateFish();

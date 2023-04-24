@@ -88,7 +88,13 @@ const BasicTable = () => {
                 <TableCell align="right">{fish.price}</TableCell>
                 <TableCell align="right">{fish.origin}</TableCell>
                 <TableCell align="right">{HumanFriendlyMessage[fish.status]}</TableCell>
-                <TableCell align="right">{fish.image_source}</TableCell>
+                <TableCell align="right">
+                  <img
+                      src={fish.image_source}
+                      alt="Small Image"
+                      style={{ width: 50, height: 50, objectFit: 'cover' }}
+                    />
+                </TableCell>
                 <TableCell align="right">
                   <Button variant="outlined" startIcon={<DeleteIcon />} onClick={(e) => handleFishDelete(e, fish.fish_id)}>
                     Delete

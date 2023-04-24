@@ -27,7 +27,7 @@ function Footer() {
 }
 
 const theme = createTheme();
-const backgroundImages = [mainBackground, mainBackground, mainBackground]
+const backgroundImages = [mainBackground, mainBackground]
 
 export default function MainComponent({ component: Component }) {
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ export default function MainComponent({ component: Component }) {
               {backgroundImages.map((image, index) => 
                 <div key={index}className="each-slide-effect">
                     <div style={{ 'backgroundImage': `url(${image})` }}> 
-                        <span>Slide 1</span>
+                        <span>We love goldfish and we want to share our passion with you.</span>
                     </div>
                 </div>)}
             </Slide>
