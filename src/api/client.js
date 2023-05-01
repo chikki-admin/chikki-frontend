@@ -5,36 +5,31 @@ const rootUrl = () => {
     if (dev) {
         return "http://localhost:8000";
     } else {
-        return "https://18.223.108.214"
+        return "https://18.223.109.254"
     }
 }
 
 const getSellerId = (sellerId) => {
-    return axios.get(`${rootUrl()}/auth/seller/${sellerId}`,{
-        withCredentials: true,
-        crossDomain: true})
+    return axios.get(`${rootUrl()}/auth/seller/${sellerId}`)
         .then(response => response.data);
 }
 
 const getFishBySellerId = (sellerId) => {
-    return axios.get(`${rootUrl()}/seller/${sellerId}/fish`, {
-        withCredentials: true,
-        crossDomain: true
-    }).then(response => response.data);
+    return axios.get(`${rootUrl()}/seller/${sellerId}/fish`).then(response => response.data);
 }
 
 const getFish = (params={}) => {
-  return axios.get(`${rootUrl()}/fish`, { params, withCredentials: true, crossDomain: true })
+  return axios.get(`${rootUrl()}/fish`, { params})
                 .then(response => response.data);
 }
 
 const getFishPagination = (offSet) => {
-    return axios.get(`${rootUrl()}/fish/pagination/${offSet}`, {withCredentials: true, crossDomain: true})
+    return axios.get(`${rootUrl()}/fish/pagination/${offSet}`)
                   .then(response => response.data);
   }
 
 const buyFish = (sessionId) => {
-    return axios.post(`${rootUrl()}/fish/${sessionId}`, {withCredentials: true, crossDomain: true})
+    return axios.post(`${rootUrl()}/fish/${sessionId}`)
 }
 
 const postFish = (payload) => {
