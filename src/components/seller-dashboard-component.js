@@ -64,13 +64,13 @@ const BasicTable = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Fish Id</TableCell>
-              <TableCell>Fish Name</TableCell>
-              <TableCell align="right">Fish Price</TableCell>
-              <TableCell align="right">Fish origin</TableCell>
-              <TableCell align="right">status</TableCell>
-              <TableCell align="right">Fish Picture</TableCell>
-              <TableCell align="right">Delete</TableCell>
+              <TableCell><b>Fish Id</b></TableCell>
+              <TableCell><b>Fish Name</b></TableCell>
+              <TableCell align="right"><b>Fish Price</b></TableCell>
+              <TableCell align="right"><b>Fish origin</b></TableCell>
+              <TableCell align="right"><b>status</b></TableCell>
+              <TableCell align="right"><b>Fish Picture</b></TableCell>
+              <TableCell align="right"><b>Delete</b></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -92,7 +92,7 @@ const BasicTable = () => {
                   <img
                       src={fish.image_source}
                       alt="Small Image"
-                      style={{ width: 50, height: 50, objectFit: 'cover' }}
+                      style={{ width: 100, height: 100, objectFit: 'cover' }}
                     />
                 </TableCell>
                 <TableCell align="right">

@@ -27,7 +27,7 @@ function Footer() {
 }
 
 const theme = createTheme();
-const backgroundImages = [mainBackground, mainBackground]
+const backgroundImages = [mainBackground, mainBackground] // These images need to be resize to fit into slide
 
 export default function MainComponent({ component: Component }) {
   const navigate = useNavigate();

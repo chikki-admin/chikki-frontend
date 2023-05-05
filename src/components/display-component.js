@@ -44,7 +44,7 @@ export default function DisplayComponent() {
 
     return(
         <Container maxWidth="30%">
-            <p style={letterStyles}>Live Stream section available 7PM Central time daily </p>
+            {/* <p style={letterStyles}>Live Stream section available 7PM Central time daily </p> */}
             <p style={letterStyles}>Our available selection </p>
             <VideoPlayerComponent open={openModal} setOpen={setOpenModal} videoSource={videoSource}/>
             <InfiniteScroll

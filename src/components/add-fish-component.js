@@ -41,25 +41,48 @@ const AddFishForm = () => {
         sellerId: user.userId,
         token: user.token
     });
-    const onSubmitFishClick = (event) => {
+    const onSubmitFishClick = async (event) => {
       if (fishPayload.name === '' || fishPayload.price === '' || fishPayload.s3Source === '') {
           alert('You are missing either name, price or s3Source');
           return
       }
       // post a fish
-
-      const reader = new FileReader();
-      reader.readAsDataURL(fishPayload.s3Source);
-      reader.onloadend = () => {
-        fishPayload.s3Source = reader.result;
+      let promises = []
+      let fishImagePromise = new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(fishPayload.s3Source);
+        reader.onload = () => resolve(reader.result)
+      })
+      promises.push(fishImagePromise)
+      if (fishPayload.videoSource) {
+        let fishVideoPromise = new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(fishPayload.videoSource);
+          reader.onload = () => resolve(reader.result)
+      })
+      promises.push(fishVideoPromise)
+      Promise.all(promises).then(fileContents => {
+        fishPayload.s3Source = fileContents[0]
+        fishPayload.videoSource = fileContents[1]
         postFish(fishPayload).then((response) => {
           if (response === 'OK') {
+            setFishPayload({
+              ...fishPayload,
+              name: '',
+              price: '',
+              origin: '',
+              s3Source: '',
+              description: '',
+              videoSource: '',
+              imageSource: ''
+            })
             navigate('/sellerdashboard');
           } else {
             alert('Something went wrong');}
         })
-      };
+    });
     }
+  }
     return (
         <Paper sx={{padding:2}}>
             <h2>Add Fish</h2>
@@ -69,6 +92,7 @@ const AddFishForm = () => {
                 label="Fish Name"
                 fullWidth
                 onChange={(e) => setFishPayload({...fishPayload, name: e.target.value})}
+                value={fishPayload.name}
                 required
                 sx={{padding: 1}}
                 />
@@ -78,6 +102,7 @@ const AddFishForm = () => {
                 label="Fish Price"
                 fullWidth
                 onChange={(e) => setFishPayload({...fishPayload, price: e.target.value})}
+                value={fishPayload.price}
                 required
                 type='number'
                 sx={{padding: 1}}
@@ -87,6 +112,7 @@ const AddFishForm = () => {
                 id="demo-helper-text-aligned"
                 label="Fish Origin"
                 onChange={(e) => setFishPayload({...fishPayload, origin: e.target.value})}
+                value={fishPayload.origin}
                 fullWidth
                 sx={{padding: 1}}
                 />
@@ -96,10 +122,12 @@ const AddFishForm = () => {
                 id="demo-helper-text-aligned"
                 label="Fish Description"
                 onChange={(e) => setFishPayload({...fishPayload, description: e.target.value})}
+                value={fishPayload.description}
                 fullWidth
                 sx={{padding: 1}}
                 />
-            {fishPayload.imageSource ? <p> <CheckCircleOutlineIcon style={{ color: 'green' }}/> Media Selected</p> : null}
+            {fishPayload.imageSource ? <p> <CheckCircleOutlineIcon style={{ color: 'green' }}/> Image Selected</p> : null}
+            {fishPayload.videoSource ? <p> <CheckCircleOutlineIcon style={{ color: 'green' }}/> Video Selected</p> : null}
             <Button
                 variant="outlined"
                 component="label"
@@ -109,7 +137,8 @@ const AddFishForm = () => {
                 <input
                   type="file"
                   hidden
-                  onChange={(e) => setFishPayload({...fishPayload, s3Source: e.target.files[0], imageSource: e.target.value})}
+                  onChange={(e) => 
+                    setFishPayload({...fishPayload, s3Source: e.target.files[0], imageSource: e.target.value})}
                 />
             </Button>
             <Button
@@ -121,9 +150,30 @@ const AddFishForm = () => {
                 <input
                   type="file"
                   hidden
-                  onChange={(e) => setFishPayload({...fishPayload, videoSource: e.target.files[0]})}
+                  onChange={(e) => {
+                    if (e.target.files[0].size> 1024 * 1024 * 2) {
+                      alert('File size should be less than 2MB')
+                    } else {
+                      setFishPayload({...fishPayload, videoSource: e.target.files[0]})
+                    }
+                }}
                 />
             </Button>
+            <Button 
+                variant="outlined"
+                align="right"
+                component="label"
+                sx={{padding: 1}}
+                onClick={() => setFishPayload({
+                  ...fishPayload,
+                  name: '',
+                  price: '',
+                  origin: '',
+                  s3Source: '',
+                  description: '',
+                  videoSource: '',
+                  imageSource: ''
+                })}>Clear</Button>
             <Divider style={{ height: 10}}/>
             <Button variant="contained" color="primary" fullWidth onClick={() => onSubmitFishClick()}><h3>Submit</h3></Button>
 

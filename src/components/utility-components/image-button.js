@@ -64,9 +64,11 @@ const ClickableImageButton = (props) => {
             width: '100%',
         }}
         onClick={() => {
-            if (fishItem.status === 'sold'){
+            if (fishItem.status !== 'sold'){
                 setVideoSource(fishItem.video_source)
                 setOpenModal(true)
+            } else{
+              return
             }
         }}
         >
